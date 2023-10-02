@@ -1,0 +1,25 @@
+total literate people/population=literacy ratio......1
+
+total literate people=literacy ratio * population
+
+total illiterate people=(1-1iteracy ratio) * population 
+
+females+males=population..........2
+
+females=population-males ..........3
+
+(population-males)=(sex ratio) *males
+
+population= males (sex ratio+1)
+
+males = population/(sex ratio 1)....males
+
+females population=population/(sex ratios+1)........ females
+
+=population(1-1/(sex ratio+1))
+=(population (sex ratio))/(sex ratios+1)
+
+population
+
+previous_census+growth*previous_census = population
+previous_census=population/(1+growth)
