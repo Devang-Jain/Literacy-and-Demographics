@@ -106,7 +106,7 @@ create table #topstates
 
 insert into #topstates
 select State_name,round(avg(literacy),0) avg_literacy_ratio
-from literacy
+from portfolio..literacy
 group by State_name
 order by avg_literacy_ratio desc;
 
@@ -123,7 +123,7 @@ create table #bottomstates
 
 insert into #bottomstates
 select state_name,round(avg(literacy),0) avg_literacy_ratio
-from literacy
+from portfolio..literacy
 group by State_name 
 order by avg_literacy_ratio desc;
 
@@ -148,10 +148,10 @@ order by #bottomstates.bottomstate asc) b;
 
 --Select starting with letter a
 
-select * from literacy
+select * from portfolio..literacy
 where State_name like 'a%'
 
-select * from literacy
+select * from portfolio..literacy
 where lower(State_name) like 'a%'
 
 -- joining both table
@@ -177,7 +177,7 @@ select c.district,c.State_name, round(c.literacy_ratio*c.Population,0) literate_
 (select a.District,a.State_name, b.Literacy/100 literacy_ratio,a.Population
 from Portfolio..demographics a
 inner join Portfolio..literacy b
-on a.District=b.District)c)
+on a.District=b.District)c
 
 --Literace vs Illiterate (State wise)
 select d.State_name,sum(d.literate_people) total_literate, SUM(d.illiterate_people) total_illiterate from
@@ -189,7 +189,7 @@ on a.District=b.District)c)d
 group by d.State_name
 
 
---Population in previous sensus (State_wise)
+--Population in previous census (State_wise)
 select d.State_name,sum(d.Previous_census_Population) Previous_census_Population ,sum(d.Current_census_population) Current_census_population from
 (select c.district, c.State_name,c.Growth,round(c.Population/(1+c.Growth),0) Previous_census_Population, c.Population Current_census_population from
 (select a.State_name,a.District,a.Population,b.Growth
@@ -199,7 +199,7 @@ on a.District=b.District)c)d
 group by d.State_name
 
 
---Population in previous sensus (Country)
+--Population in previous census (Country)
 select SUM(e.Previous_census_Population) total_Previous_census_Population, SUM(e.Current_census_population) total_Current_census_population FROM 
 (select d.State_name,sum(d.Previous_census_Population) Previous_census_Population ,sum(d.Current_census_population) Current_census_population from
 (select c.district, c.State_name,c.Growth,round(c.Population/(1+c.Growth),0) Previous_census_Population, c.Population Current_census_population from
